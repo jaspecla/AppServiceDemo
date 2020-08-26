@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppServiceDemo", "AppServic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{9F11A553-3743-4B09-92E0-2EBE0070F7F2}"
 	ProjectSection(SolutionItems) = preProject
+		.github\workflows\linux_deploy.yml = .github\workflows\linux_deploy.yml
 		.github\workflows\win_deploy.yml = .github\workflows\win_deploy.yml
 	EndProjectSection
 EndProject
