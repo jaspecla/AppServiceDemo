@@ -5,14 +5,14 @@ on:
       - master
 
 env:
-    OS: windows-latest
+    BUILD_OS: windows-latest
     RELEASE_DEST: appservicedemo
     APP_NAME: app-service-demo-win-jaspecla
     LUNCH_SPECIAL: Hamburgers
 
 jobs:
   build-and-deploy:
-    runs-on: ${{env.OS}}
+    runs-on: ${{ env.BUILD_OS }}
     steps:
 
     # checkout the repo
@@ -36,18 +36,18 @@ jobs:
       run: dotnet test --configuration Release
     - name: dotnet publish
       run: |
-        dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/${{env.RELEASE_DEST}} 
+        dotnet publish -c Release -o ${{ env.DOTNET_ROOT }}/${{ env.RELEASE_DEST }} 
 
     - name: 'Run Azure webapp deploy action'
       uses: azure/webapps-deploy@v1
       with: 
-        app-name: ${{env.APP_NAME}} 
-        package: ${{env.DOTNET_ROOT}}/${{env.RELEASE_DEST}}
+        app-name: ${{ env.APP_NAME }} 
+        package: ${{ env.DOTNET_ROOT }}/${{ env.RELEASE_DEST }}
 
     - name: "Set App Service Settings"
       uses: azure/appservice-settings@v1
       with:
-        app-name: '${{env.APP_NAME}}'
+        app-name: '${{ env.APP_NAME }}'
         app-settings-json: >-
-          [{"name": "LunchSpecial", "value": "${{env.LUNCH_SPECIAL}}", "slotSetting": false}]
+          [{"name": "LunchSpecial", "value": "${{ env.LUNCH_SPECIAL }}", "slotSetting": false}]
       id: settings
