@@ -5,14 +5,13 @@ on:
       - master
 
 env:
-    BUILD_OS: windows-latest
     RELEASE_DEST: appservicedemo
     APP_NAME: app-service-demo-win-jaspecla
     LUNCH_SPECIAL: Hamburgers
 
 jobs:
   build-and-deploy:
-    runs-on: ${{ env.BUILD_OS }}
+    runs-on: windows-latest
     steps:
 
     # checkout the repo
