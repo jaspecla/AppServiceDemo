@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.30404.54
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppServiceDemo", "AppServiceDemo\AppServiceDemo.csproj", "{3AE793F7-BF2A-4615-9932-595C1144B014}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{9F11A553-3743-4B09-92E0-2EBE0070F7F2}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\win_deploy.yml = .github\workflows\win_deploy.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
