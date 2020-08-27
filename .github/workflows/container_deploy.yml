@@ -30,7 +30,7 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
     
     - run: |
-        docker build -f ./AppServiceDemo/Dockerfile -t ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.CONTAINER_TAG }}:${{ github.sha }}
+        docker build ./AppServiceDemo -t ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.CONTAINER_TAG }}:${{ github.sha }}
         docker push ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.CONTAINER_TAG }}:${{ github.sha }}
 
     - name: "Set App Service Settings"
