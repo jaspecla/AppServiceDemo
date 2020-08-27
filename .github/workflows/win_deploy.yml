@@ -3,6 +3,10 @@ on:
   push:
     branches: 
       - master
+    paths:
+    - 'AppServiceDemo/**'
+    - '.github/workflows/win_deploy.yml'
+
 
 env:
     RELEASE_DEST: appservicedemo

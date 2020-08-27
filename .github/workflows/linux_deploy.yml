@@ -3,6 +3,10 @@ on:
   push:
     branches: 
       - master
+    paths:
+    - 'AppServiceDemo/**'
+    - '.github/workflows/linux_deploy.yml'
+
 
 env:
     RELEASE_DEST: appservicedemo

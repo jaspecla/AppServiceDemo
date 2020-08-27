@@ -3,6 +3,9 @@ on:
   push:
     branches: 
       - master
+    paths:
+    - 'AppServiceDemo/**'
+    - '.github/workflows/container_deploy.yml'
 
 env:
     RELEASE_DEST: appservicedemo
@@ -32,6 +35,11 @@ jobs:
     - run: |
         docker build ./AppServiceDemo -t ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.CONTAINER_TAG }}:${{ github.sha }}
         docker push ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.CONTAINER_TAG }}:${{ github.sha }}
+
+    - uses: azure/webapps-container-deploy@v1
+      with:
+        app-name: '${{ env.APP_NAME }}'
+        images: '${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.CONTAINER_TAG }}:${{ github.sha }}'
 
     - name: "Set App Service Settings"
       uses: azure/appservice-settings@v1
