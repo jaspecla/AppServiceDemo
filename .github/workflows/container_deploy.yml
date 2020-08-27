@@ -8,7 +8,8 @@ env:
     RELEASE_DEST: appservicedemo
     APP_NAME: app-service-demo-containers-jaspecla
     LUNCH_SPECIAL: 'Pigs in a Blanket'
-
+    REGISTRY_NAME: 'appservicedemocontainersjaspecla'
+    CONTAINER_TAG: 'aspnetdemoapp'
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -24,13 +25,13 @@ jobs:
     
     - uses: azure/docker-login@v1
       with:
-        login-server: appservicedemocontainersjaspecla.azurecr.io
+        login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     
     - run: |
-        docker build . -t contoso.azurecr.io/nodejssampleapp:${{ github.sha }}
-        docker push contoso.azurecr.io/nodejssampleapp:${{ github.sha }}
+        docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.CONTAINER_TAG }}:${{ github.sha }}
+        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.CONTAINER_TAG }}:${{ github.sha }}
 
     - name: "Set App Service Settings"
       uses: azure/appservice-settings@v1
