@@ -47,7 +47,7 @@ jobs:
           {"name": "DOCKER_REGISTRY_SERVER_PASSWORD", "value": "${{ secrets.REGISTRY_PASSWORD }}", "slotSetting": false}]
       id: settings
 
-    - uses: azure/webapps-container-deploy@v2
+    - uses: azure/webapps-deploy@v2
       with:
         app-name: '${{ env.APP_NAME }}'
         images: '${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.CONTAINER_TAG }}:${{ github.sha }}'
