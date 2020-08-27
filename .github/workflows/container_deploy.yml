@@ -1,0 +1,41 @@
+name: "Web App Deployment for Linux Containers"
+on:
+  push:
+    branches: 
+      - master
+
+env:
+    RELEASE_DEST: appservicedemo
+    APP_NAME: app-service-demo-containers-jaspecla
+    LUNCH_SPECIAL: 'Pigs in a Blanket'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    # checkout the repo
+    - uses: actions/checkout@master
+    
+    # authenticate to Azure
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS_CONTAINER }}
+    
+    - uses: azure/docker-login@v1
+      with:
+        login-server: appservicedemocontainersjaspecla.azurecr.io
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    
+    - run: |
+        docker build . -t contoso.azurecr.io/nodejssampleapp:${{ github.sha }}
+        docker push contoso.azurecr.io/nodejssampleapp:${{ github.sha }}
+
+    - name: "Set App Service Settings"
+      uses: azure/appservice-settings@v1
+      with:
+        app-name: '${{ env.APP_NAME }}'
+        app-settings-json: >-
+          [{"name": "LunchSpecial", "value": "${{ env.LUNCH_SPECIAL }}", "slotSetting": false}]
+      id: settings
