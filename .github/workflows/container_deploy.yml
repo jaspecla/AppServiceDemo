@@ -40,6 +40,7 @@ jobs:
       uses: azure/appservice-settings@v1
       with:
         app-name: '${{ env.APP_NAME }}'
+        slot-name: 'dev'
         app-settings-json: >-
           [{"name": "LunchSpecial", "value": "${{ env.LUNCH_SPECIAL }}", "slotSetting": false},
           {"name": "DOCKER_REGISTRY_SERVER_URL", "value": "${{ env.REGISTRY_NAME }}.azurecr.io", "slotSetting": false},
@@ -50,5 +51,6 @@ jobs:
     - uses: azure/webapps-deploy@v2
       with:
         app-name: '${{ env.APP_NAME }}'
+        slot-name: 'dev'
         images: '${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.CONTAINER_TAG }}:${{ github.sha }}'
 
